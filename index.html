@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container header-container">
+        <h1>Weather App</h1>
+        <form id="city-form" role="search" aria-label="Choose city">
+          <div class="autocomplete">
+            <input
+              type="text"
+              id="city-input"
+              placeholder="Search for a city"
+              autocomplete="off"
+            />
+            <ul id="suggestions" class="suggestions"></ul>
+          </div>
+          <button type="submit">Search</button>
+        </form>
+      </div>
+    </header>
+
+    <main>
+      <!-- Секція статусу/помилок -->
+      <section id="status-message" aria-live="polite" hidden>
+        <p></p>
+      </section>
+
+      <section id="location-info" class="location-info">
+        <h2 id="city-name">City</h2>
+      </section>
+
+      <!-- Секція прогнозу -->
+      <section class="forecast" aria-labelledby="forecast-title">
+        <h2 id="forecast-title">Forecast for the week</h2>
+        <ul id="forecast-list" class="forecast-list" role="list">
+          <!-- Список днів: кожен <li> з кнопкою або посиланням -->
+          <!-- При кліку відкривається dialog -->
+          <!-- <li><button data-day="2025-07-01">Tue, Jul 1 — 25°C / 16°C</button></li> -->
+        </ul>
+      </section>
+    </main>
+
+    <!-- Модальне вікно з деталями прогнозу -->
+    <section
+      id="day-details"
+      class="day-details"
+      aria-labelledby="day-details-title"
+    >
+      <h2 id="day-details-title">Detailed Forecast</h2>
+      <div id="forecast-details">
+        <!-- Сюди буде вставлятись погодинний прогноз -->
+      </div>
+    </section>
+
+    <footer>
+      <div class="container footer-container">
+        <p>&copy; 2025 Weather App. Built with 💙</p>
+      </div>
+    </footer>
+
+    <script src="index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,236 @@
+/* === Global styles === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #f2f4f8;
+  --text: #222;
+  --accent: #0077cc;
+  --card-bg: #fff;
+  --border: #ddd;
+  --radius: 10px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  padding: 0 1rem;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem;
+}
+
+/* === Header === */
+header {
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  border-bottom: 1px solid var(--border);
+}
+
+header h1 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+#city-form {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+#city-input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+#city-form button {
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#city-form button:hover {
+  background: #005fa3;
+}
+
+/* === Status === */
+#status-message {
+  margin: 1rem 0;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* === Forecast List === */
+.forecast {
+  margin-top: 2rem;
+}
+
+.forecast-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+.forecast-list li button {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  width: 100%;
+  padding: 0.75rem 0.5rem;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.forecast-list li button:hover {
+  transform: scale(1.02);
+  border-color: var(--accent);
+}
+
+.forecast-list li button.active {
+  border: 2px solid var(--accent);
+  background-color: #eef6fc;
+}
+
+.forecast-list li button .day-label {
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.forecast-list li button .temps {
+  font-size: 0.85rem;
+}
+
+.forecast-list li button .rain-chance {
+  font-size: 0.8rem;
+  color: #444;
+}
+
+.forecast-list li button img {
+  width: 32px;
+  height: 32px;
+  margin-top: 0.25rem;
+}
+
+/* === Day Details === */
+#day-details {
+  margin-top: 2rem;
+}
+
+.hourly-table {
+  margin-top: 1.5rem;
+  overflow-x: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  max-width: 100%;
+  font-size: 0.8rem;
+}
+
+.hourly-table table {
+  width: auto;
+  border-collapse: collapse;
+  table-layout: auto;
+  margin: 0 auto;
+}
+
+.hourly-table th,
+.hourly-table td {
+  border: 1px solid var(--border);
+  padding: 0.3rem 0.5rem;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.hourly-table th {
+  background: #f9f9f9;
+  font-weight: 600;
+}
+
+.hourly-table td img {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.dialog-content h4,
+#day-details h4 {
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+/* === Location Info === */
+.location-info {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+#city-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+/* === Footer === */
+footer {
+  margin-top: 4rem;
+  text-align: center;
+  color: #777;
+  font-size: 0.875rem;
+  padding-bottom: 2rem;
+}
+
+/* === Autocomplete === */
+.autocomplete {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: white;
+  border: 1px solid var(--border);
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.suggestions li {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.suggestions li:hover {
+  background: #f0f0f0;
+}
