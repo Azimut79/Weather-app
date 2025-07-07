@@ -1,10 +1,8 @@
-// ======= Глобальні змінні =======
 const API_BASE = "https://api.open-meteo.com/v1/forecast";
 const weatherContainer = document.getElementById("current-weather");
 const forecastList = document.getElementById("forecast-list");
 const statusMessage = document.getElementById("status-message");
 
-// ======= Ініціалізація =======
 window.addEventListener("DOMContentLoaded", () => {
   getUserLocation();
   setupSearch();
@@ -19,7 +17,7 @@ function getUserLocation() {
           const city = await getCityFromCoords(latitude, longitude);
           fetchWeather(latitude, longitude, city);
         } catch {
-          fetchWeather(latitude, longitude, null); // fallback
+          fetchWeather(latitude, longitude, null);
         }
       },
       (err) => {
@@ -31,7 +29,6 @@ function getUserLocation() {
   }
 }
 
-// ======= Отримати погоду з Open-Meteo =======
 let latestForecastData = null;
 function fetchWeather(lat, lon, cityName = null) {
   showStatus("Loading weather...");
@@ -62,7 +59,6 @@ function fetchWeather(lat, lon, cityName = null) {
     });
 }
 
-// ======= Рендер прогнозу =======
 function renderForecast(data) {
   const days = data.daily;
   forecastList.innerHTML = "";
@@ -97,11 +93,9 @@ function renderForecast(data) {
     forecastList.appendChild(li);
   });
 
-  // За замовчуванням показати сьогодні
   renderDayDetails(days.time[0]);
 }
 
-// ======= Відкрити модальне вікно з деталями =======
 function renderDayDetails(dayStr) {
   const details = document.getElementById("forecast-details");
   const hourly = latestForecastData?.hourly;
@@ -157,7 +151,6 @@ document.getElementById("close-dialog")?.addEventListener("click", () => {
   document.getElementById("forecast-dialog").close();
 });
 
-// ======= Формат дати YYYY-MM-DD → читабельна =======
 function formatDate(dateStr) {
   const date = new Date(dateStr);
   return date.toLocaleDateString(undefined, {
@@ -167,7 +160,6 @@ function formatDate(dateStr) {
   });
 }
 
-// ======= Показати статус або помилку =======
 function showStatus(msg, isError = false) {
   statusMessage.hidden = false;
   statusMessage.querySelector("p").textContent = msg;
@@ -177,7 +169,6 @@ function hideStatus() {
   statusMessage.hidden = true;
 }
 
-// ======= Обробка форми пошуку (на майбутнє) =======
 function setupSearch() {
   const form = document.getElementById("city-form");
   form.addEventListener("submit", async (e) => {
@@ -195,9 +186,10 @@ function setupSearch() {
   });
 }
 
-// ======= Отримати координати за назвою міста через Nominatim =======
 async function getCoordsFromCity(city) {
-  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(city)}`;
+  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+    city
+  )}`;
   const res = await fetch(url);
   const data = await res.json();
   if (!data.length) throw new Error("City not found");
@@ -223,10 +215,8 @@ function renderTodayDetails(data) {
   const { hourly } = data;
   if (!hourly || !hourly.time) return;
 
-  // Знайти сьогоднішню дату в форматі YYYY-MM-DD
   const today = new Date().toISOString().split("T")[0];
 
-  // Фільтруємо години тільки на сьогодні
   const todayHours = [];
   for (let i = 0; i < hourly.time.length; i++) {
     const timestamp = hourly.time[i];
@@ -244,7 +234,6 @@ function renderTodayDetails(data) {
 
   if (!todayHours.length) return;
 
-  // Створюємо HTML таблицю
   const detailsHTML = `
       <h4 style="margin-top: 2rem;">Hourly forecast for today</h4>
       <div class="hourly-table">
@@ -277,7 +266,6 @@ function renderTodayDetails(data) {
       </div>
     `;
 
-  // Додати після current weather
   const container = document.getElementById("current-weather");
   container.insertAdjacentHTML("beforeend", detailsHTML);
 }
@@ -296,7 +284,9 @@ input.addEventListener("input", () => {
 
   debounceTimer = setTimeout(() => {
     fetch(
-      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&addressdetails=1`
+      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+        query
+      )}&limit=5&addressdetails=1`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -323,7 +313,6 @@ function formatPlaceName(place) {
   return [city || town || village || state, country].filter(Boolean).join(", ");
 }
 
-// Закриття при втраті фокусу
 document.addEventListener("click", (e) => {
   if (!e.target.closest(".autocomplete")) {
     suggestionsList.innerHTML = "";
